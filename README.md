@@ -11,6 +11,6 @@
 - [2-2 变量类型和计算-2](chapter-02.md#2-2-变量类型和计算-2)
 - [2-3 变量类型和计算-3 如何理解JSON](chapter-02.md#2-3-变量类型和计算-3-如何理解JSON)
 - [2-4 变量类型和计算-3 代码演示](chapter-02.md#2-4-变量类型和计算-3-代码演示)
-- [2-5 typeof symbol 【ES6变量类型】 ](chapter-02.md#2-5-typeof-symbol-【ES6变量类型】 )
+- [2-5 typeof symbol 【ES6变量类型】 ](chapter-02.md#2-5-typeof-symbol-es6变量类型)
 - [2-6 原型和原型链](chapter-02.md#2-6-原型和原型链)
 - [2-2 变量类型和计算-2](chapter-02.md#2-2-变量类型和计算-2)
