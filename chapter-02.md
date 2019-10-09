@@ -184,3 +184,55 @@ let f = new Foo('lilei', 18)
 - let a = [] 其实是let a = new Array()的语法糖
 - function Foo(){...} 其实是let Foo = new Function(...)
 - 使用instanceof判断一个函数是否是一个变量的构造函数
+#### 判断一个变量是否为“数组”：变量 instanceof Array ####
+
+### 2-7 原型和原型链-5个原型规则 ###
+#### 原型规则和示例 ####
+- 5条原型规则
+- 原型规则是学习原型链的基础
+#### 5条原型规则 ####
+1. 所有的引用类型（数组、对象、函数），都具有对象特性，即可自由扩展属性（除了"null"以外）
+2. 所有的引用类型（数组、对象、函数），都有一个`__proto__`（隐式原型）属性，属性值是一个普通的对象
+3. 所有的函数，都有一个`prototype`（显示原型）属性，属性值也是一个普通的对象
+4. 所有的引用类型（数组、对象、函数），`__proto__`属性值指向它的构造函数的`prototype`属性值
+5. 当试图得到一个对象的某个属性时，如果这个对象本身没有这个属性，那么会去它的`__proto__`（即它的构造函数的`prototype`）中寻找
+#### 示例 ####
+<pre>
+规则一
+let obj = {}
+obj.a = 100
+let arr = []
+arr.a = 100
+function fn() {}
+fn.a = 100
+
+规则二
+console.log(obj.__proto__)
+console.log(arr.__proto__)
+console.log(fn.__proto__)
+
+规则三
+console.log(fn.prototype)
+
+规则四
+console.log(obj.__proto__ === Object.prototype)
+</pre>
+<pre>
+规则五
+// 构造函数
+function Foo(name, age) {
+    this.name = name
+}
+Foo.prototype.alertName = function() {
+    alert(this.name)
+}
+
+// 创建实例
+let f = new Foo('lilei')
+f.printName = function() {
+    console.log(this.name)
+}
+// 测试
+f.printName()
+f.alertName()
+</pre>
