@@ -268,3 +268,4 @@ f.printName()
 f.alertName()
 f.toString() // 要去f.__proto__.__proto__中查找
 </pre>
+![](https://i.imgur.com/wOikOr6.jpg)
