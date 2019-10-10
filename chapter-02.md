@@ -269,3 +269,95 @@ f.alertName()
 f.toString() // 要去f.__proto__.__proto__中查找
 </pre>
 ![](https://i.imgur.com/wOikOr6.jpg)
+
+### 2-10 原型和原型链-原型链-instanceof ###
+#### instanceof ####
+- 用于判断`引用类型`属于哪个`构造函数`的方法
+- f instanceof Foo 的判断逻辑是：
+- f的`__proto__`一层一层往上，能否对应到Foo.prototype
+- 再试着判断f instanceof Object
+
+### 2-11 原型和原型链-解答1 ###
+#### 解题 ####
+- 如何准确判断一个变量是数组类型
+- 写一个原型链继承的例子
+- 描述new一个对象的过程
+- zepto（或其他框架）源码中如何使用原型链
+#### 如何准确判断一个变量是数组类型 ####
+<pre>
+let arr = []
+arr instanceof Array // true
+typeof arr // object，typeof是无法判断是否是数组的
+</pre>
+#### 写一个原型链继承的例子 ####
+<pre>
+// 动物
+function Animal() {
+    this.eat = function() {
+        console.log('animal eat')
+    }
+}
+// 狗
+function Dog() {
+    this.bark = function() {
+        console.log('dog bark')
+    }
+}
+Dog.prototype = new Animal()
+// 哈士奇
+let hashiqi = new Dog()
+
+// 接下来代码演示时，会推荐更加贴近实战的原型继承示例
+</pre>
+#### 描述new一个对象的过程 ####
+- 创建一个新对象
+- this指向这个新对象
+- 执行代码，即对this赋值
+- 返回this
+<pre>
+function Foo(name, age) {
+    this.name = name
+    this.age = age
+    this.class = 'class-1'
+    // return this // 默认有这一行
+}
+
+let f = new Foo('lilei', 18)
+// let f2 = new Foo('hanmeimei', 18) // 创建多个对象
+</pre>
+#### zepto（或其他框架）源码中如何使用原型链 ####
+- 阅读源码是高效提高技巧的方式
+- 但不能“埋头苦钻”有技巧在其中
+- 慕课网搜索“zepto设计和源码分析”
+
+### 2-12 原型和原型链-解答2-些一个贴近实际开发原型链继承的例子 ###
+#### 写一个封装DOM查询的例子 ####
+<pre>
+function Elem(id) {
+  this.elem = document.getElementById(id)
+}
+
+Elem.prototype.html = function(val) {
+  let elem = this.elem
+  if (val) {
+    elem.innerHTML = val
+    return this // 为了链式操作
+  } else {
+    return elem.innerHTML
+  }
+}
+
+Elem.prototype.on = function(type, fn) {
+  let elem = this.elem
+  elem.addEventListener(type, fn)
+  return this
+}
+
+let div1 = new Elem('div1')
+console.log(div1.html())
+div1.html('hello imooc').on('click', function() {
+  alert('clicked')
+}).html('链式传递')
+</pre>
+
+### 2-13 原型和原型链-代码演示 ###
