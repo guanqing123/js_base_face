@@ -236,3 +236,35 @@ f.printName = function() {
 f.printName()
 f.alertName()
 </pre>
+
+### 2-8 原型和原型链-5个原型规则-补充二点 ###
+<pre>
+for (let item in f) {
+    // 高级浏览器已经在 for in 中屏蔽了来自原型的属性
+    // 但是这里建议大家还是加上这个判断，保证程序的健壮性
+    if (f.hasOwnProperty(item)) {
+        console.log(item)
+    }
+}
+</pre>
+
+### 2-9 原型和原型链-原型链 ###
+<pre>
+// 构造函数
+function Foo(name, age) {
+    this.name = name
+}
+Foo.prototype.alertName = function() {
+    alert(this.name)
+}
+
+// 创建实例
+let f = new Foo('lilei')
+f.printName = function() {
+    console.log(this.name)
+}
+// 测试
+f.printName()
+f.alertName()
+f.toString() // 要去f.__proto__.__proto__中查找
+</pre>
