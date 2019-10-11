@@ -19,7 +19,7 @@
 #### 执行上下文 ####
 <pre>
 console.log(a) // undefined
-var a = 100
+var a = 100	// 变量提升,会把 var a;提到执行上下文前面,var a = undefined;进行声明
 
 fn('lilei') // "lilei" 20
 function fn(name) {
