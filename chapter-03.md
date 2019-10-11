@@ -252,7 +252,7 @@ f1() // 100
 function F1() {
     var a = 100
     return function() {
-        console.log(a)
+        console.log(a)  // a 自由变量，向父作用域去寻找 ——函数**定义**时的父作用域
     }
 }
 var f1 = F1()
@@ -262,3 +262,107 @@ function F2(fn) {
 }
 F2(f1) // 100
 </pre>
+<pre>
+var a = 100
+function F1() {
+    return function() {
+        console.log(a)  // a 自由变量，向父作用域去寻找 ——函数**定义**时的父作用域
+    }
+}
+var f1 = F1()
+function F2(fn) {
+    var a = 300
+    fn()
+}
+F2(f1) // 100
+</pre>
+<pre>
+var a = 100
+function F1() {
+    return function() {
+        console.log(a)  // a 自由变量，向父作用域去寻找 ——函数**定义**时的父作用域
+    }
+}
+var f1 = F1()
+function F2(fn) {
+    var a = 300
+    fn()
+}
+a = 800
+F2(f1)	// 800
+</pre>
+
+### 3-10 作用域和闭包-解题 ###
+#### 解题 ####
+- 说一下对变量提升的理解
+- 说明this几种不同的使用场景
+- 创建10个`<a>`标签，点击的时候弹出来对应的序号
+- 如何理解作用域
+- 实际开发中闭包的应用
+#### 说一下对变量提升的理解 ####
+- 变量定义
+- 函数声明（注意和函数表达式的区别）
+#### 说明this几种不同的使用场景 ####
+- 作为构造函数执行
+- 作为对象属性执行
+- 作为普通函数执行
+- call apply bind
+#### 创建10个`<a>`标签 点击的时候弹出来对应的序号 ####
+<pre>
+// 这是一个错误的写法！！！
+var i, a
+for (i = 0; i < 10; i++) {
+    a = document.createElement('a')
+    a.innerHTML = i + '&#60;br&#62;'
+    a.addEventListener('click', function(e) {
+        e.preventDefault()
+        alert(i) // 自由变量,要去父作用域获取值;等到点击的时候,i已经变成10了,所有都是10
+    })
+    document.body.appendChild(a)
+}
+</pre>
+<pre>
+// 这是正确的写法！！！
+var i
+for (i = 0; i < 100; i++) {
+    (function(i) {
+        // 函数作用域
+        var a = document.createElement('a')
+        a.innerHTML = i + '&#60;br&#62;'
+        a.addEventListener('click', function(e) {
+            e.preventDefault()
+            alert(i)  // 自由变量,要去父作用域获取值;此时去函数作用域获取;		
+        })
+        document.body.appendChild(a)
+    })(i)
+}
+</pre>
+#### 如何理解作用域 ####
+- 自由变量
+- 作用域链，即自由变量的查找
+- 闭包的两个场景
+#### 实际开发中闭包的应用 ####
+<pre>
+// 闭包实际应用中主要用于封装变量，收敛权限
+function isFirstLoad() {
+    var _list = []
+    return function(id) {
+        if (_list.indexOf(id) >= 0) {
+            return false
+        } else {
+            _list.push(id)
+            return true
+        }
+    }
+}
+
+// 使用
+var firstLoad = isFirstLoad()
+firstLoad(10) // true
+firstLoad(10) // false
+firstLoad(20) // true
+// 你在isFirstLoad函数外，根本不可能修改掉_list的值
+</pre>
+
+#### 3-11 作用域和闭包-解题-代码演示 ####
+同上 3-10
