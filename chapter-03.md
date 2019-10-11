@@ -49,8 +49,8 @@ var fn1 = function(){
 fn("zhangsan")
 function fn(name){
 
-  console.log(this)  // Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}
-  console.log(arguments) // Arguments ["zhangsan", callee: ƒ, Symbol(Symbol.iterator): ƒ]
+  console.log(this)  
+  console.log(arguments) 
 
   age = 20
   console.log(name, age)
@@ -62,6 +62,8 @@ function fn(name){
     console.log(num)
   }
 }
+// Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}
+// Arguments ["zhangsan", callee: ƒ, Symbol(Symbol.iterator): ƒ]
 // zhangsan 20
 // 100
 </pre>
