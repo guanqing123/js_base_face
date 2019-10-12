@@ -272,3 +272,79 @@ for (key in obj) {
 - 获取随机数，要求是长度一致的字符串格式
 - 写一个能遍历对象和数组的通用forEach函数
 #### 获取2017-06-10格式的日期 ####
+<pre>
+function formatDate(dt){
+  if(!dt){
+    dt = new Date()
+  }
+  var year = dt.getFullYear()
+  var month = dt.getMonth() + 1
+  var date = dt.getDate()
+  if (month < 10){
+    // 强制类型转换
+    month = '0' + month
+  }
+  if (date < 10){
+    // 强制类型转换
+    date = '0' + date
+  }
+  // 强制类型转换
+  return year + '-' + month + '-' + date
+}
+var dt = new Date()
+var formatDate = formatDate(dt)
+console.log(formatDate)
+</pre>
+<pre>
+function formatDate(dt){
+  if(!dt){
+    dt = new Date()
+  }
+  var year = dt.getFullYear()
+  var month = dt.getMonth()
+  var date = dt.getDate()
+  return year + '-' + month.toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0');
+}
+var dt = new Date()
+var formatDate = formatDate(dt)
+console.log(formatDate)
+</pre>
+#### 获取随机数，要求是长度一致的字符串格式 ####
+<pre>
+var random = Math.random()
+random = random + '0000000000'
+random = random.slice(0, 10)
+console.log(random)
+</pre>
+#### 写一个能遍历对象和数组的通用forEach函数 ####
+<pre>
+function forEach(obj, fn) {
+    var key
+    if (obj instanceof Array) {
+        obj.forEach(function(item, index) {
+            fn(index, item)
+        })
+    } else {
+        for (key in obj) {
+            fn(key, obj[key])
+        }
+    }
+}
+
+var arr = [1, 2, 3]
+// 注意，这里参数的顺序换了，为了和对象的遍历格式一致
+forEach(arr, function(index, item) {
+    console.log(index, item)
+})
+
+var obj = { x: 100, y: 200 }
+forEach(obj, function(key, value) {
+    console.log(key, value)
+})
+</pre>
+#### 重点总结 ####
+- 日期
+- Math
+- 数组API
+- 对象API
+### 4-9 其他知识点-代码演示 ###
