@@ -126,3 +126,53 @@ p.setAttribute('data-name', 'imooc')
 p.getAttribute('style')
 p.setAttribute('style', 'font-size: 30px;')
 </pre>
+
+### 5-4 BOM节点操作-代码演示 ###
+同上
+
+### 5-5 DOM结构操作 ###
+- 新增节点
+- 获取父元素
+- 获取子元素
+- 删除节点
+#### 新增节点 ####
+<pre>
+var div1 = document.getElementById('div1')
+// 添加新节点
+var p1 = document.createElement('p')
+p1.innerHTML = 'this is p1'
+div1.appendChild(p1) // 添加新创建的元素
+// 移动已有节点
+var p2 = document.getElementById('p2')
+div1.appendChild(p2)
+</pre>
+#### 获取父元素和子元素 ####
+<pre>
+var div1 = document.getElementById('div1')
+var parent = div1.parentElement
+
+var child = div1.childNodes
+div1.removeChild(child[0])
+</pre>
+#### 删除节点 ####
+<pre>
+var div1 = document.getElementById('div1')
+var child = div1.childNodes
+div1.removeChild(child[0])
+</pre>
+
+### 5-6BOM结构操作-代码演示 ###
+同上
+
+### 5-7BOM结构解答   ###
+#### 解答 ####
+- DOM 是哪种基本的数据结构?
+	- 数
+- DOM 操作的常用API有哪些?
+	- 获取DOM节点,以及节点的property和Attribute
+	- 获取父节点,获取子节点
+	- 新增节点,删除节点
+- DOM 节点的 Attribute 和 property 有何区别?
+	- property 只是一个 JS 对象的属性的修改
+	- Attribute 是对 html 标签属性的修改
+	- https://segmentfault.com/a/1190000008781121
