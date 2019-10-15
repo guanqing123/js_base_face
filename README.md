@@ -53,3 +53,5 @@
 - [5-5 DOM结构操作](chapter-05.md#5-5-DOM结构操作)
 - [5-6 BOM结构操作-代码演示](chapter-05.md#5-6-BOM结构操作-代码演示)
 - [5-7 BOM结构解答](chapter-05.md#5-7-BOM结构解答)
+- [5-8 BOM操作-知识点](chapter-05.md#5-8-BOM操作-知识点)
+- [5-9 BOM操作-代码演示](chapter-05.md#5-9-BOM操作-代码演示)

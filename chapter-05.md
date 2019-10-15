@@ -161,10 +161,10 @@ var child = div1.childNodes
 div1.removeChild(child[0])
 </pre>
 
-### 5-6BOM结构操作-代码演示 ###
+### 5-6 BOM结构操作-代码演示 ###
 同上
 
-### 5-7BOM结构解答   ###
+### 5-7 BOM结构解答   ###
 #### 解答 ####
 - DOM 是哪种基本的数据结构?
 	- 数
@@ -263,3 +263,45 @@ document.getElementById('test').getAttribute('id');
 document.getElementById('test').setAttribute('class', 'red');
 document.getElementById('test').getAttribute('checked'); //  返回字符串类型 'checked'
 </pre>
+
+### 5-8 BOM操作-知识点  ###
+Browser	Object Model
+- 题目
+- 知识点
+- 解答
+#### 题目 ####
+- 如何检测浏览器的类型
+- 拆解url的各部分
+#### 知识点 ####
+- navigator
+- screen
+- location
+- history
+#### navigator & screen ####
+<pre>
+// navigator
+var ua = navigator.userAgent
+var isChrome = ua.indexOf('Chrome')
+console.log(isChrome)
+
+// screen
+console.log(screen.width)
+console.log(screen.height)
+</pre>
+#### location & history ####
+<pre>
+// location
+console.log(location.href)
+console.log(location.protocol) // 'http:' 'https:'
+console.log(location.pathname) // '/learn/199'
+console.log(location.search)
+console.log(location.hash)
+
+// history
+history.back()
+history.forward()
+</pre>
+
+
+### 5-9 BOM操作-代码演示  ###
+同上
