@@ -175,4 +175,91 @@ div1.removeChild(child[0])
 - DOM 节点的 Attribute 和 property 有何区别?
 	- property 只是一个 JS 对象的属性的修改
 	- Attribute 是对 html 标签属性的修改
-	- https://segmentfault.com/a/1190000008781121
+#### Attribute（特性） ####
+1. attribute特性由HTML定义，所有出现在HTML标签内的描述节点都是attribute特性。
+	<pre>
+	&lt;div id="test" class="button" custom-attr="1"&gt;&lt;/div&gt;
+	</pre>
+	<pre>
+	document.getElementById('test').attributes;
+	return: [custom-attr="hello", class="button",   id="test"]
+	</pre>
+2. attribute特性的类型总是字符串类型。
+	<pre>
+	document.getElementById('test').getAttribute('custom-attr') 或者
+	$('#test').attr('custom-attr') 总是返回字符串类型的"1"。
+	</pre>
+#### Property（属性） ####
+1. property属性属于DOM对象，DOM实质就是javascript中的对象。我们可以跟在js中操作普通对象一样获取、设置DOM对象的属性，并且property属性可以是任意类型。
+	<pre>
+    document.getElementById('test').foo = 1; // 设置属性: foo 为 number类型: 1
+    document.getElementById('test').foo; // 获取属性值, return number: 1
+    $('#test').prop('foo'); // 使用jquery获取属性值, return number: 1
+	</pre>
+	<pre>
+	  $('#test').prop('foo', {
+        age: 23,
+        name: 'John'
+      }); // 使用jquery设置一个名为foo的对象
+      document.getElementById('test').foo.age; // return number类型: 23
+      document.getElementById('test').foo.name; // return string类型: "John"
+	</pre>
+----------
+<b>注1</b>：这里的property可以是任意类型指的是我们为DOM对象自定义添加的属性，对于DOM对象的原始属性，类似<b style="color:red;">name</b>属性，无论我们设置什么类型的值，最后返回的都是字符类型。<br/>
+
+另外，我们获取HTML5定义的data属性时，获取的值也是字符串。<span style="color:red">```<div data-id="33"></div>```,ele.dataset.id // string 33</span><br/>
+
+1. 非自定义的attribute特性与property有1:1的映射关系,比如: id,class,title等<br/>
+```<div id="test" class="button" foo="1"></div>```
+<pre>
+document.getElementById('test').id; // return string: "test"
+document.getElementById('test').className; // return string: "button"
+document.getElementById('test').foo; // return undefined 因为foo是一个自定义的attr特性
+</pre>
+注意：当我们通过property属性进行设置或获取class时，我们需要使用<b>className</b>，因为在js中<b style="color:red">class</b>是关键字。
+
+<b>注2</b>：第二点的意思是说当我们在html中写非自定义的attribute特性时，DOM对象会自动映射对应的property。
+
+1. 非自定义的property（attribute）改变的时候，其对应的attribute（property）在多数情况下也会改变。
+```<div id="test" class="button"></div>```
+<pre>
+var div = document.getElementById('test');
+div.className = 'red-input';
+div.getAttribute('class'); // return string: "red-input"
+div.setAttribute('class','green-input');
+div.className; // return string: "green-input"
+</pre>
+2.当对应的property改变的时候，attribute特性value的值一直未默认值，并不会随之改变。<br/>
+```<input id="search" value="foo" />```
+<pre>
+var input = document.getElementById('search');
+input.value = 'foo2';
+input.getAttribute('value'); // return string: "foo"
+</pre>
+这条特性意味着我们平时在写业务的时候多数情况下使用property是正确的。当用户input输入更改的时候，attribute-value值不会变化，即使js更改value，也不会使attribute变化。这也验证了第三点的。
+
+<b>最佳实践</b><br/>
+在javascript中我们推荐使用<b>property</b>属性因为这个属性相对<b>attribute</b>更快，更简便。尤其是有些类型本该是布尔类型的attribute特性。比如："checked", "disabled", "selected"。浏览器会自动将这些值转变成布尔值传给property属性。<br/>
+```<input id="test" class="blue" type="radio" />```
+
+好实践：
+<pre>
+// get id
+document.getElementById('test').id;
+// set class
+document.getElementById('test').className = 'red';
+// get and set radio control status
+document.getElementById('test').checked; // boolean 
+document.getElementById('test').checked = true;
+$('#test').prop('checked'); // boolean
+$('#test').prop('checked', true);
+</pre>
+
+坏实践：
+<pre>
+// get id
+document.getElementById('test').getAttribute('id');
+// set class
+document.getElementById('test').setAttribute('class', 'red');
+document.getElementById('test').getAttribute('checked'); //  返回字符串类型 'checked'
+</pre>
