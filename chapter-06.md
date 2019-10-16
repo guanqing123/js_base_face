@@ -33,3 +33,81 @@ bindEvent(a, 'click', function(e){
 - IE低版本使用量已非常少,很多网站都早已不支持
 - 建议对IE低版本的兼容性：了解即可,无需深究
 - 如果遇到对IE低版本要求苛刻的面试,果断放弃
+#### 事件冒泡 ####
+<pre>
+&lt;div id="div1"&gt;
+  &lt;p id="p1"&gt;激活&lt;/p&gt;
+  &lt;p id="p2"&gt;取消&lt;/p&gt;
+  &lt;p id="p3"&gt;取消&lt;/p&gt;
+  &lt;p id="p4"&gt;取消&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id="div2"&gt;
+  &lt;p id="p5"&gt;取消&lt;/p&gt;
+  &lt;p id="p6"&gt;取消&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+<pre>
+function bindEvent(elem, type, fn) {
+  elem.addEventListener(type, fn)
+}
+var p1 = document.getElementById('p1')
+bindEvent(p1, 'click', function (e) {
+  e.stopPropagation()
+  alert('激活')
+})
+var body = document.body
+bindEvent(body, 'click', function (){
+  alert('取消')
+})
+</pre>
+#### 代理 ####
+<pre>
+&lt;div id="div1"&gt;
+  &lt;a href="#"&gt;a1&lt;/a&gt;
+  &lt;a href="#"&gt;a2&lt;/a&gt;
+  &lt;a href="#"&gt;a3&lt;/a&gt;
+  &lt;a href="#"&gt;a4&lt;/a&gt;
+  &lt;!--会随时新增更多 a 标签--&gt;
+&lt;/div&gt;
+</pre>
+<pre>
+var div1 = document.getElementById('div1')
+div1.addEventListener('click', function (e) {
+  var target = e.target
+  if (target.nodeName === 'A'){
+    alert(target.innerHTML)
+  }
+})
+</pre>
+#### 完善通用绑定事件的函数 ####
+<pre>
+function bindEvent(elem, type, selector, fn) {
+  if (fn == null){
+    fn = selector
+    selector = null
+  }
+  elem.addEventListener(type, function(e){
+    var target
+    if (selector) {
+      target = e.target
+      if (target.matches(selector)){
+        fn.call(target, e)
+      }
+    } else {
+      fn(e)
+    }
+  })
+}
+</pre>
+<pre>
+// 使用代理
+var div1 = document.getElementById('div1')
+bindEvent(div1, 'click', a, function (e) {
+  console.log(this.innerHTML)
+})
+// 不使用代理
+var a = document.getElementById('a1')
+bindEvent(div1, 'click', function (e) {
+  console.log(a.innerHTML)
+})
+</pre>
