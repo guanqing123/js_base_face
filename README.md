@@ -59,3 +59,6 @@
 ### 第6章 JS-Web-API （下） ###
 - [6-1 事件-知识点](chapter-06.md#6-1-事件-知识点)
 - [6-2 事件-代码演示](chapter-06.md#6-2-事件-代码演示)
+- [6-3 事件-解答](chapter-06.md#6-3-事件-解答)
+- [6-4 Ajax-XMLHttpRequest](chapter-06.md#6-4-Ajax-XMLHttpRequest)
+- [6-5 Ajax-跨域和问题解答](chapter-06.md#6-5-Ajax-跨域和问题解答)

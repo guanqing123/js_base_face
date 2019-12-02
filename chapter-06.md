@@ -206,7 +206,7 @@ xhr.onreadystatechange = function(){
 #### 关于代码演示 ####
 - 以上是ajax的实现原理，后续会使用jquery演示代码
 
-### 6-5跨域 ###
+### 6-5 Ajax跨域 ###
 - 什么是跨域
 - JSONP
 - 服务器端设置 http header
