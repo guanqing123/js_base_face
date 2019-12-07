@@ -63,3 +63,10 @@
 - [6-4 Ajax-XMLHttpRequest](chapter-06.md#6-4-Ajax-XMLHttpRequest)
 - [6-5 Ajax-跨域和问题解答](chapter-06.md#6-5-Ajax-跨域和问题解答)
 - [6-6 存储](chapter-06.md#6-6-存储)
+
+### 第7章 开发环境 ###
+- [7-1 开发环境介绍](chapter-07.md#7-1-开发环境介绍)
+- [7-2 IDE](chapter-07.md#7-2-IDE)
+- [7-3 Git](chapter-07.md#7-3-Git)
+- [7-4 代码演示](chapter-07.md#7-4-代码演示)
+- [7-5 代码演示-多人协作](chapter-07.md#7-5-代码演示-多人协作)
