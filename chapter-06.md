@@ -206,7 +206,7 @@ xhr.onreadystatechange = function(){
 #### 关于代码演示 ####
 - 以上是ajax的实现原理，后续会使用jquery演示代码
 
-### 6-5 Ajax跨域 ###
+### 6-5 Ajax-跨域和问题解答 ###
 - 什么是跨域
 - JSONP
 - 服务器端设置 http header
@@ -217,15 +217,101 @@ xhr.onreadystatechange = function(){
 - 跨域条件：协议、域名、端口，有一个不同就算跨域<br/>
 <b style="color:red">http://www.yourname.com:80/page1.html</b><br/>
 <b style="color:red">http://m.imooc.com:80/course/ajaxcourserecom?cid=459</b>
-#### 跨域跨域的三个标签 ####
+#### 可以跨域的三个标签 ####
 - 但是有三个标签允许跨域加载资源
-- &lt;img src=xxx&gt;
+- &lt;img src=xxx&gt;	防盗链(百度,知乎)
 - &lt;link href=xxxx&gt;
 - &lt;script src=xxx&gt;
 #### 三个标签的场景 ####
 - &lt;img&gt;用于打点统计，统计网站可能是其他域
-- &lt;link&gt; &lt;script&gt;可以使用CDN，CDN的也是其他域
+- &lt;link&gt; &lt;script&gt;可以使用CDN，CDN的也是其他域，BootCDN
 - &lt;script&gt; 可以用于JSONP，马上讲解
 #### 跨域注意事项 ####
 - 所有的跨域请求都必须经过信息提供方允许
 - 如果未经允许即可获取，那是浏览器同源策略出现漏洞
+#### JSONP实现原理 ####
+- 加载 http://coding.m.imooc.com/classindex.html
+- 不一定服务器端真正有一个 classindex.html 文件
+- 服务器可以根据请求，动态生成一个文件，返回
+- 同理于&lt;script src="http://coding.m.imooc.com/api.js"&gt;
+- 例如你的网站要跨域访问慕课网的一个接口
+- 慕课给你一个地址 http://coding.m.imooc.com/api.js
+- 返回内容格式如 callback({x:100, y:200})(可动态生成)
+<pre>
+&lt;script&gt;
+window.callback = function(data) {
+	// 这是我们跨域得到信息
+	console.log(data)
+}
+&lt;/script&gt;
+&lt;script src="http://coding.m.imooc.com/api.js"&gt;&lt;/script&gt;
+以上将返回 callback({x:100, y:200}),然后我们正好定义过 window.callback 函数,相当于执行了
+因为script可以绕过跨越的限制
+</pre>
+#### 服务器端设置 http header ####
+- 另外一个解决跨域的简洁方法,需要服务器端来做
+- 但是作为交互方,我们必须知道这个方法
+- 是将来解决跨域问题的一个趋势
+<pre>
+//注意 不同后端语言的写法可能不一样
+
+// 第二个参数填写允许跨域的域名称,不建议直接写 "*"
+response.setHeader("Access-Control-Allow-Origin","http://a.com,http://b.com");
+response.setHeader("Access-Control-Allow-Headers","X-Requested-With");
+response.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+
+// 接收跨域的cookie
+response.setHeader("Access-Control-Allow-Credentials","true");
+</pre>
+#### 关于代码演示 ####
+- 以上是JSONP的实现原理,后续会使用jquery演示代码
+- 后端设置 http header 不演示代码，了解即可
+#### 解答 ####
+- 手动编写一个 ajax,不依赖第三方库
+<pre>
+var xhr = new XMLHttpRequest()
+xhr.open("GET","/api",false)
+xhr.onreadystatechange = function(){
+  // 这里的函数异步执行,可参考之前 JS 基础中的异步模块
+  if (xhr.readyState == 4) {
+    if (xhr.status == 200) {
+	  alert(xh.responseText)
+    }
+  }
+}
+xhr.send(null)
+</pre>
+- 跨域的几种实现方式
+	- JSONP
+	- 服务器端设置 http header
+#### 重点总结 ####
+- XMLHttpRequest
+- 状态码说明
+- 跨域
+
+### 6-6 存储 ###
+#### 题目 ####
+- 请描述一下 cookie，sessionStorage 和 localStorage 的区别?
+#### 知识点 ####
+- cookie
+- localStorage和sessionStorage
+#### cookie ####
+- 本身用于客户端和服务器端通信
+- 但是它有本地存储的功能,于是就被“借用”
+- 使用document.cookie = ....获取和修改即可
+#### cookie用于存储的缺点 ####
+- 存储量太小,只有4KB
+- 所有http请求都带着,会影响获取资源的效率
+- API简单,需要封装才能用 document.cookie= ....
+#### locationStorage 和 sessionStorage ####
+- HTML5 专门为存储而设计，最大容量 5M
+- API简单易用:
+	- localStorage.setItem(key, value); locationStorage.getItem(key);
+- IOS safari 隐藏模式下
+	- localStorage.getItem 会报错
+	- 建议统一使用 try-catch 封装
+#### 解答 ####
+- 请描述一下 cookie，sessionStorage 和 localStorage 的区别?
+	- 容量
+	- 是否会携带到 ajax 中
+	- API易用性

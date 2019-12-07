@@ -62,3 +62,4 @@
 - [6-3 事件-解答](chapter-06.md#6-3-事件-解答)
 - [6-4 Ajax-XMLHttpRequest](chapter-06.md#6-4-Ajax-XMLHttpRequest)
 - [6-5 Ajax-跨域和问题解答](chapter-06.md#6-5-Ajax-跨域和问题解答)
+- [6-6 存储](chapter-06.md#6-6-存储)
