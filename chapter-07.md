@@ -192,3 +192,5 @@ require(['./a.js'], function(a) {
 &lt;/body&gt;
 &lt;/html&gt;
 </pre>
+### 7-7 AMD-代码演示 ###
+同上
