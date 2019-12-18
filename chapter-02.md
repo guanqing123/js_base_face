@@ -268,7 +268,7 @@ f.printName()
 f.alertName()
 f.toString() // 要去f.__proto__.__proto__中查找
 </pre>
-![](https://i.imgur.com/wOikOr6.jpg)
+![原型链](https://github.com/guanqing123/js_base_face/blob/master/model_link.png)
 
 ### 2-10 原型和原型链-原型链-instanceof ###
 #### instanceof ####
